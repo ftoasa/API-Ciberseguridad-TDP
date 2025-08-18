@@ -2,7 +2,7 @@ from flask import Flask, request, jsonify
 
 app = Flask(__name__)
 
-# Base de datos simulada de IPs en lista negra (para ejemplo)
+# Base de datos simulada de IPs en lista negra
 BLACKLIST = {
     "192.168.1.100": {"reason": "Malware distribution", "severity": "High"},
     "10.0.0.50": {"reason": "Brute force attacks", "severity": "Medium"},
