@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify
 import requests
+import os
 
 app = Flask(__name__)
 
@@ -10,9 +11,13 @@ BLACKLIST = {
     "172.16.254.1": {"reason": "Phishing", "severity": "Low"}
 }
 
-# Configuración de AbuseIPDB
-ABUSEIPDB_API_KEY = "10d39096c82b0451678116efa05d4abe7648279f398c645286aa8d5df04911f139c7da6f37c37456"  # Cambia por tu clave real
+# Configuración de AbuseIPDB desde variable de entorno
+ABUSEIPDB_API_KEY = os.getenv("ABUSEIPDB_API_KEY")
 ABUSEIPDB_URL = "https://api.abuseipdb.com/api/v2/check"
+
+# Warning en rojo si la API Key no está definida
+if not ABUSEIPDB_API_KEY:
+    print("\033[91m" + "⚠️  WARNING: No se encontró la clave de API. Define la variable de entorno ABUSEIPDB_API_KEY." + "\033[0m")
 
 def check_ip_blacklist(ip):
     """Verifica si una IP está en la lista negra simulada."""
@@ -28,6 +33,12 @@ def check_ip_blacklist(ip):
 
 def check_abuseipdb(ip):
     """Consulta la API de AbuseIPDB para verificar una IP."""
+    if not ABUSEIPDB_API_KEY:
+        return {
+            "status": "error",
+            "details": "No se encontró la clave de API. Define la variable de entorno ABUSEIPDB_API_KEY."
+        }
+    
     headers = {
         "Key": ABUSEIPDB_API_KEY,
         "Accept": "application/json"
@@ -61,7 +72,6 @@ def check_ip():
     if not ip:
         return jsonify({"error": "Proporciona una dirección IP"}), 400
     
-    # Validación básica de formato de IP (simplificada)
     if not all(c.isdigit() or c == '.' or c == ':' for c in ip):
         return jsonify({"error": "Formato de IP inválido"}), 400
     
@@ -74,7 +84,6 @@ def check_abuseipdb_endpoint():
     if not ip:
         return jsonify({"error": "Proporciona una dirección IP"}), 400
     
-    # Validación básica de formato de IP (simplificada)
     if not all(c.isdigit() or c == '.' or c == ':' for c in ip):
         return jsonify({"error": "Formato de IP inválido"}), 400
     
