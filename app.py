@@ -96,7 +96,7 @@ def info():
         'nombre': 'Checkear IP - Tratamiento de Datos Personales Paralelo A',
         'version': '1.0.0',
         'descripcion': 'API para verificar si una dirección IP está listada en bases de datos de listas negras (blacklists)',
-        'autor': 'Fabricio',
+        'autor': 'Fabricio Toasa, Maria Ordoñez, Anghelo Loayza',
     })
 
 if __name__ == '__main__':

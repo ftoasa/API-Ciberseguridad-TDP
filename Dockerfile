@@ -1,4 +1,4 @@
-# Imagen base con Python 3.11 (puedes usar 3.10 si prefieres)
+# Imagen base con Python 3.11
 FROM python:3.11-slim
 
 # Carpeta de trabajo dentro del contenedor
