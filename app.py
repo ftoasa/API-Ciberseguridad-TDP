@@ -94,7 +94,7 @@ def check_abuseipdb_endpoint():
 def info():
     return jsonify({
         'nombre': 'Checkear IP - Tratamiento de Datos Personales Paralelo A',
-        'version': '1.0.0',
+        'version': '1.0.1',
         'descripcion': 'API para verificar si una dirección IP está listada en bases de datos de listas negras (blacklists)',
         'autor': 'Fabricio Toasa, Maria Ordoñez, Anghelo Loayza',
     })
